@@ -1,0 +1,24 @@
+{
+  "name": "pluggable-cache",
+  "version": "0.0.1",
+  "description": "caching adapter for pluggable-store",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script",
+    "build": "./node_modules/.bin/coffee -o ./lib -cw ./src"
+  },
+  "repository": "",
+  "keywords": [
+    "cache"
+  ],
+  "author": "Mirko Kiefer <mail@mirkokiefer.com>",
+  "license": "BSD",
+  "dependencies": {
+    "async": "~0.1.22"
+  },
+  "devDependencies": {
+    "mocha": "~1.6.0",
+    "coffee-script": "~1.4.0",
+    "pluggable-store-tests": "0.0.1"
+  }
+}
