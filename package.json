@@ -1,6 +1,6 @@
 {
   "name": "pluggable-cache",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "caching adapter for pluggable-store",
   "main": "lib/index.js",
   "scripts": {
