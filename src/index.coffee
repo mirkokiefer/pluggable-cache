@@ -24,10 +24,12 @@ class Cache
   read: (path, cb) ->
     obj = this
     @cache.read path, (err, res) ->
-      if err then obj.persistence.read path, (err, res) ->
-        obj.cache.write path, res, ->
-        cb null, res
-      else cb null, res
+      if res then cb null, res
+      else
+        obj.persistence.read path, (err, res) ->
+          obj.cache.write path, res, ->
+          cb null, res
+
   remove: (path, cb) ->
     if @lazy
       @cache.remove path, cb
