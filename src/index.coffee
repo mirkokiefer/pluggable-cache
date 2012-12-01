@@ -34,12 +34,7 @@ class Cache
       @persistence.remove path, ->
     else
       async.forEach [@cache, @persistence], ((each, cb) -> each.remove path, cb), cb
-  keys: (cb) ->
-    obj = this
-    @cache.keys (err, res) ->
-      if err then obj.persistence.keys cb
-      else cb null, res
-
+  keys: (cb) -> @persistence.keys cb
 create = (opts) -> new PluggableStore adapter: (new Cache opts)
 create.adapter = Cache
 module.exports = create
