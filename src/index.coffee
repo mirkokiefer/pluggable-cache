@@ -4,17 +4,17 @@ async = require 'async'
 
 class Cache
   constructor: ({@cache, @persistence, @lazy}) ->
-  createdStore: (cb) ->
-    isCreated = (each, cb) -> each.createdStore cb
-    async.every [@cache, @persistence], isCreated, cb
-  createStore: (cb) ->
+  exists: (cb) ->
+    eachExists = (each, cb) -> each.exists cb
+    async.every [@cache, @persistence], eachExists, cb
+  create: (cb) ->
     createEach = (each, cb) ->
-      each.createdStore (err, created) ->
-        if created then cb null
-        else each.createStore cb
+      each.exists (err, exists) ->
+        if exists then cb null
+        else each.create cb
     async.forEach [@cache, @persistence], createEach, cb
-  removeStore: (cb) ->
-    async.forEach [@cache, @persistence], ((each, cb) -> each.removeStore cb), cb
+  destroy: (cb) ->
+    async.forEach [@cache, @persistence], ((each, cb) -> each.destroy cb), cb
   write: (path, data, cb) ->
     if @lazy
       @cache.write path, data, cb
@@ -25,7 +25,7 @@ class Cache
     obj = this
     @cache.read path, (err, res) ->
       if err then obj.persistence.read path, (err, res) ->
-        @cache.write path, res, ->
+        obj.cache.write path, res, ->
         cb null, res
       else cb null, res
   remove: (path, cb) ->

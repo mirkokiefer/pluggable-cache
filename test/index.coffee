@@ -6,6 +6,6 @@ genericTests = require 'pluggable-store-tests'
 
 cache = memory()
 persistence = server.fileSystem process.env.HOME+'/test-store'
-after (cb) -> persistence.removeStore cb
+after (cb) -> persistence.destroy cb
 describe 'cache adapter', genericTests -> createStore cache: cache, persistence: persistence
 describe 'lazy cache adapter', genericTests -> createStore cache: cache, persistence: persistence, lazy: true
